@@ -1,12 +1,12 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/igorskyflyer/{{repo}}/main/media/{{pkg}}.png" alt="Icon of {{project}}" width="256" height="256">
-  <h1>{{project}}</h1>
+  <img src="https://raw.githubusercontent.com/igorskyflyer/npm-oxfmt-config/main/media/oxfmt-config.png" alt="Icon of Oxfmt Config" width="256" height="256">
+  <h1>Oxfmt Config</h1>
 </div>
 
-<blockquote align="center"> •  •  • </blockquote>
+<blockquote align="center">oxfmt Powered • Import Sorting • Zero Bikeshedding • Extend and Go</blockquote>
 
 <h4 align="center">
-  {{desc}}
+  ✨ Pixel-perfect code formatting opinions, oxfmt-powered and ready to extend. ⚓
 </h4>
 
 <br>
@@ -15,8 +15,6 @@
 
 - ✨ [**Features**](#features)
 - 🕵🏼 [**Usage**](#usage)
-- 🤹🏼 [**API**](#api)
-- 🗒️ [**Examples**](#examples)
 - ⚙️ [**Implementation**](#implementation)
 - 🎯 [**Motivation**](#motivation)
 - 📝 [**Changelog**](#changelog)
@@ -29,9 +27,12 @@
 
 ## Features
 
-- 
-- 
-- 
+- ✨ Pixel-perfect, consistent formatting across all modern file types
+- 📦 Handles `JS`, `TS`, `JSX`, `TSX`, `JSON`, `HTML`, `CSS`, `Vue` and more
+- 🔍 Intelligent `import sorting` - builtin first, then internal, then external
+- 🎯 `Opinionated` defaults - extend and go, zero bikeshedding
+- ⚡ Powered by `oxfmt` - `30x` faster than `Prettier`
+- 🛡️ `Zero dependencies` - `oxfmt` is a peer dependency only
 
 <br>
 
@@ -40,44 +41,60 @@
 Install it by executing any of the following, depending on the preferred package manager:
 
 ```bash
-pnpm add @igorskyflyer/{{pkg}}
+pnpm add -D @igorskyflyer/oxfmt-config
 ```
 
 ```bash
-yarn add @igorskyflyer/{{pkg}}
+yarn add -D @igorskyflyer/oxfmt-config
 ```
 
 ```bash
-npm i @igorskyflyer/{{pkg}}
+npm i -D @igorskyflyer/oxfmt-config
 ```
 
 <br>
 
-## API
+Then extend the config in `.oxfmtrc.json`:
 
-<br>
+```json
+{ "extends": "@igorskyflyer/oxfmt-config" }
+```
 
-## Examples
+Override any rule locally as needed:
+
+```json
+{ "extends": "@igorskyflyer/oxfmt-config", "printWidth": 100 }
+```
 
 <br>
 
 ## Implementation
 
+The config enforces consistent formatting across all supported file types with a single, versioned source of truth. Import sorting follows a deliberate order - builtin modules first, internal `@igorskyflyer` packages second, external dependencies third, relative imports fourth, style imports last - mirroring a natural debugging flow from most to least familiar.
+
+All decisions are intentional and documented - nothing is left to chance or personal preference on a per-project basis.
+
 <br>
 
 ## Motivation
+
+Formatting decisions are a source of endless bikeshedding across projects. Each project ends up with its own slightly different config, slightly outdated, with no single source of truth.
+
+`@igorskyflyer/oxfmt-config` solves this by providing one opinionated, versioned config that propagates across all projects via a simple `extends`.
+
+_Update once, apply everywhere_ - just like all packages of the `@igorskyflyer` ecosystem do!
 
 <br>
 
 ## Changelog
 
-Read about the latest changes in the [**CHANGELOG**](https://github.com/igorskyflyer/{{repo}}/blob/main/CHANGELOG.md).
+Read about the latest changes in the [**CHANGELOG**](https://github.com/igorskyflyer/npm-oxfmt-config/blob/main/CHANGELOG.md).
 
 <br>
 
 ## License
 
-Licensed under the [**MIT license**](https://github.com/igorskyflyer/{{repo}}/blob/main/LICENSE).
+Licensed under the [**MIT license**](https://github.com/igorskyflyer/npm-oxfmt-config/blob/main/LICENSE).
 
 <br>
 
@@ -99,27 +116,40 @@ Licensed under the [**MIT license**](https://github.com/igorskyflyer/{{repo}}/bl
 
 ## Related
 
-[**ID**]()
+[**@igorskyflyer/astro-render-component**](https://www.npmjs.com/package/@igorskyflyer/astro-render-component)
 
-> _ID_
+> _🤖 Astro component renderer. Zero configuration. Produces clean HTML strings directly in Node.js
+> without any DOM environment. 🐬_
 
-[**ID**]()
+<br>
 
-> _ID_
+[**@igorskyflyer/adblock-filter-counter**](https://www.npmjs.com/package/@igorskyflyer/adblock-filter-counter)
 
-[**ID**]()
+> _🐲 A lightweight npm module for counting ad-block filter rules, ultra-simple, fast, and perfect
+> for list maintainers, filter testers, and privacy tool developers.🦘_
 
-> _ID_
+<br>
 
-[**ID**]()
+[**@igorskyflyer/zep**](https://www.npmjs.com/package/@igorskyflyer/zep)
 
-> _ID_
+> _🧠 Zep is a zero-dependency, efficient debounce module. ⏰_
 
-[**ID**]()
+<br>
 
-> _ID_
+[**@igorskyflyer/magic-string**](https://www.npmjs.com/package/@igorskyflyer/magic-string)
+
+> _🧵 An expressive and chainable library for advanced string manipulations. Supports appending,
+> prepending, trimming, quoting, and path formatting with customizable whitespace handling. Makes
+> advanced String manipulations a piece of cake. 🦥_
+
+<br>
+
+[**@igorskyflyer/valid-path**](https://www.npmjs.com/package/@igorskyflyer/valid-path)
+
+> _🧰 Determines whether a given value can be a valid file/directory name. 🏜_
 
 <br>
 
 ## Author
-Created by **Igor Dimitrijević ([*@igorskyflyer*](https://github.com/igorskyflyer/))**.
+
+Created by **Igor Dimitrijević ([_@igorskyflyer_](https://github.com/igorskyflyer/))**.
