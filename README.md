@@ -70,6 +70,10 @@ Override any rule locally as needed:
 
 ## Implementation
 
+The config enforces consistent formatting across all supported file types with a single, versioned source of truth. Import sorting follows a deliberate order - builtin modules first, internal `@igorskyflyer` packages second, external dependencies third, relative imports fourth, style imports last - mirroring a natural debugging flow from most to least familiar.
+
+All decisions are intentional and documented - nothing is left to chance or personal preference on a per-project basis.
+
 ### Formatting
 
 - **`semi: false`** - no semicolons, cleaner visual noise reduction, ASI handles it reliably in modern JS/TS
