@@ -41,6 +41,10 @@
 Install it by executing any of the following, depending on the preferred package manager:
 
 ```bash
+bun add -d @igorskyflyer/oxfmt-config
+```
+
+```bash
 pnpm add -D @igorskyflyer/oxfmt-config
 ```
 
@@ -63,7 +67,12 @@ Then extend the config in `.oxfmtrc.json`:
 Override any rule locally as needed:
 
 ```json
-{ "extends": "@igorskyflyer/oxfmt-config", "printWidth": 100 }
+{
+  "extends": "@igorskyflyer/oxfmt-config",
+  "printWidth": 100,
+  "endOfLine": "crlf",
+  "arrowParens": "avoid"
+}
 ```
 
 <br>
@@ -79,7 +88,7 @@ All decisions are intentional and documented - nothing is left to chance or pers
 - **`semi: false`** - no semicolons, cleaner visual noise reduction, ASI handles it reliably in modern JS/TS
 - **`singleQuote: true`** - single quotes throughout, consistent with the broader `@igorskyflyer` ecosystem
 - **`trailingComma: "all"`** - trailing commas everywhere, cleaner diffs - adding a new line never modifies the previous one
-- **`printWidth: 100`** - 80 is too narrow for modern monitors, 100 is the sweet spot for readability
+- **`printWidth: 80`** - 80 is the golden standard for years now
 - **`tabWidth: 2`** - industry standard for JS/TS, consistent with [`@igorskyflyer/tsconfig`](https://www.npmjs.com/package/@igorskyflyer/tsconfig) and [`@igorskyflyer/editorconfig`](https://www.npmjs.com/package/@igorskyflyer/editorconfig)
 - **`useTabs: false`** - spaces for consistent rendering across all editors and environments
 - **`bracketSpacing: true`** - `{ name }` over `{name}`, objects need room to breathe
