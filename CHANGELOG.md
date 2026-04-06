@@ -4,6 +4,14 @@
 
 <br>
 
+## v1.2.0 – _2026-04-06_
+
+- 📦 **deps**: update `oxfmt` to `0.43.0`
+- 🔩 **config**: set `objectWrap` to `preserve`
+- 🔩 **config**: remove JSON schema URL
+
+<br>
+
 ## v1.1.0 – _2026-03-30_
 
 - 📦 **deps**: update `oxfmt` to `0.42.0`
