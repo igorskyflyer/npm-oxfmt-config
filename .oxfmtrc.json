@@ -1,11 +1,11 @@
 {
-  "$schema": "./node_modules/oxfmt/configuration_schema.json",
   "ignorePatterns": [
     "node_modules/**",
     "dist/**",
     "coverage/**",
     "*.min.js",
     "*.min.css",
+    "bun.lock",
     "pnpm-lock.yaml",
     "package-lock.json",
     "yarn.lock"
@@ -18,7 +18,7 @@
   "htmlWhitespaceSensitivity": "css",
   "insertFinalNewline": true,
   "jsxSingleQuote": false,
-  "objectWrap": "collapse",
+  "objectWrap": "preserve",
   "printWidth": 80,
   "proseWrap": "preserve",
   "quoteProps": "as-needed",
