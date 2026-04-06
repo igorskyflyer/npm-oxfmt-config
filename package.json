@@ -1,6 +1,6 @@
 {
   "name": "@igorskyflyer/oxfmt-config",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "✨ Pixel-perfect code formatting opinions, oxfmt-powered and ready to extend. ⚓",
   "exports": {
     ".": "./.oxfmtrc.json"
@@ -12,10 +12,10 @@
     "pub": "git push origin main --tags"
   },
     "peerDependencies": {
-    "oxfmt": "^0.42.0"
+    "oxfmt": "^0.43.0"
   },
   "devDependencies": {
-    "oxfmt": "^0.42.0"
+    "oxfmt": "^0.43.0"
   },
   "packageManager": "pnpm@10.33.0",
   "private": false,
