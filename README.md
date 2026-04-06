@@ -27,11 +27,10 @@
 
 ## Features
 
-- ✨ Pixel-perfect, consistent formatting across all modern file types
-- 📦 Handles `JS`, `TS`, `JSX`, `TSX`, `JSON`, `HTML`, `CSS`, `Vue` and more
-- 🔍 Intelligent `import sorting` - builtin first, then internal, then external
-- 🎯 `Opinionated` defaults - extend and go, zero bikeshedding
-- ⚡ Powered by `oxfmt` - `30x` faster than `Prettier`
+- ✨ Consistent formatting for JS, TS, JSX, TSX, JSON, HTML, CSS, Vue and more
+- 📦 Intelligent import sorting with custom internal package support
+- 🎯 Opinionated but practical defaults
+- ⚡ Powered by `Oxfmt` (very fast Rust-based formatter)
 - 🛡️ `Zero dependencies` - `oxfmt` is a peer dependency only
 
 <br>
@@ -41,7 +40,7 @@
 Install it by executing any of the following, depending on the preferred package manager:
 
 ```bash
-bun add -d @igorskyflyer/oxfmt-config
+bun add -D @igorskyflyer/oxfmt-config
 ```
 
 ```bash
@@ -58,13 +57,17 @@ npm i -D @igorskyflyer/oxfmt-config
 
 <br>
 
-Then extend the config in `.oxfmtrc.json`:
+Then extend the config in **.oxfmtrc.json**:
+
+`.oxfmtrc.json`
 
 ```json
 { "extends": "@igorskyflyer/oxfmt-config" }
 ```
 
 Override any rule locally as needed:
+
+`.oxfmtrc.json`
 
 ```json
 {
@@ -79,49 +82,46 @@ Override any rule locally as needed:
 
 ## Implementation
 
-The config enforces consistent formatting across all supported file types with a single, versioned source of truth. Import sorting follows a deliberate order - builtin modules first, internal `@igorskyflyer` packages second, external dependencies third, relative imports fourth, style imports last - mirroring a natural debugging flow from most to least familiar.
+The formatting configuration is defined in a single `.oxfmtrc.json` file that serves as the authoritative source of truth for all formatting decisions across the project.
 
-All decisions are intentional and documented - nothing is left to chance or personal preference on a per-project basis.
+All rules are intentional, documented, and designed to produce clean, readable, and diff-friendly code with minimal visual noise.
 
-### Formatting
+### Formatting Decisions
 
-- **`semi: false`** - no semicolons, cleaner visual noise reduction, ASI handles it reliably in modern JS/TS
-- **`singleQuote: true`** - single quotes throughout, consistent with the broader `@igorskyflyer` ecosystem
-- **`trailingComma: "all"`** - trailing commas everywhere, cleaner diffs - adding a new line never modifies the previous one
-- **`printWidth: 80`** - 80 is the golden standard for years now
-- **`tabWidth: 2`** - industry standard for JS/TS, consistent with [`@igorskyflyer/tsconfig`](https://www.npmjs.com/package/@igorskyflyer/tsconfig) and [`@igorskyflyer/editorconfig`](https://www.npmjs.com/package/@igorskyflyer/editorconfig)
-- **`useTabs: false`** - spaces for consistent rendering across all editors and environments
-- **`bracketSpacing: true`** - `{ name }` over `{name}`, objects need room to breathe
-- **`bracketSameLine: false`** - closing `>` on its own line, visually separates props from content
-- **`arrowParens: "always"`** - always `(x) => x`, consistent regardless of parameter count
-- **`objectWrap: "collapse"`** - collapse objects to one line if they fit, expand only when needed
-- **`singleAttributePerLine: false`** - let `printWidth` decide, one attribute per line is too aggressive for short props
-- **`endOfLine: "lf"`** - Unix line endings, cross-platform standard for source code
-- **`insertFinalNewline: true`** - POSIX standard, prevents noisy diffs
-- **`embeddedLanguageFormatting: "auto"`** - format embedded code in markdown and HTML automatically
-- **`jsxSingleQuote: false`** - double quotes in JSX, mirrors HTML attribute convention
-- **`htmlWhitespaceSensitivity: "css"`** - respects CSS display property, matches browser rendering behavior
-- **`vueIndentScriptAndStyle: false`** - no extra indent level inside `<script>` and `<style>` tags, reduces horizontal noise
-- **`proseWrap: "preserve"`** - GitHub and Bitbucket are linebreak-sensitive, never reflow prose automatically
-- **`quoteProps: "as-needed"`** - only quote object keys when necessary, cleaner output
-
-### Ignored Files
-
-- `node_modules/**` - never format dependencies
-- `dist/**` - never format compiled output
-- `coverage/**` - never format test coverage output
-- `*.min.js/css` - never format minified files, formatting destroys them
-- **lockfiles** - auto-generated, formatting is pointless and causes noisy diffs
+- **`semi: false`** - No semicolons. Reduces visual noise while relying on modern JavaScript ASI rules.
+- **`singleQuote: true`** - Single quotes for strings, consistent across the entire `@igorskyflyer` ecosystem.
+- **`trailingComma: "all"`** - Trailing commas in all applicable places (objects, arrays, functions) for cleaner git diffs.
+- **`printWidth: 80`** - Standard line width that balances readability and compactness.
+- **`tabWidth: 2`** - Two-space indentation, aligned with the project’s TypeScript and EditorConfig standards.
+- **`useTabs: false`** - Uses spaces for consistent rendering across all editors and platforms.
+- **`bracketSpacing: true`** - Adds space inside object brackets (`{ name }` instead of `{name}`).
+- **`bracketSameLine: false`** - Keeps the closing `>` of JSX elements on its own line for better visual separation.
+- **`arrowParens: "always"`** - Always includes parentheses around arrow function parameters.
+- **`objectWrap: "preserve"`** - Preserves intentional multi-line objects when the developer chooses to break them.
+- **`singleAttributePerLine: false`** - Allows multiple short attributes on one line when they fit within the print width.
+- **`endOfLine: "lf"`** and **`insertFinalNewline: true`** - Unix line endings and final newline for POSIX compliance.
+- **`jsxSingleQuote: false`** - Uses double quotes in JSX attributes to match HTML conventions.
+- **`quoteProps: "as-needed"`** - Only quotes object keys when required by JavaScript syntax.
+- **`embeddedLanguageFormatting: "auto"`**, **`htmlWhitespaceSensitivity: "css"`**, **`proseWrap: "preserve"`** - Sensible defaults for embedded code, HTML, and Markdown.
 
 ### Import Sorting
 
-Imports follow a deliberate debugging-first order:
+Imports are sorted in a deliberate order optimized for human readability and debugging:
 
-1. **`builtin`** - Node.js built-ins, most familiar
-2. **`internal + subpath`** - `@igorskyflyer` packages, own code
-3. **`external`** - third-party dependencies
-4. **`parent + sibling + index`** - relative imports
-5. **`style`** - style imports always last
+1. **`builtin`** - Node.js built-in modules (most familiar)
+2. **`internal + subpath`** - Internal packages including `@igorskyflyer/*`
+3. **`external`** - Third-party dependencies
+4. **`parent + sibling + index`** - Relative imports
+5. **`style`** - Style and CSS imports (always last)
+6. **`unknown`** - Catch-all for any remaining imports
+
+### Ignored Files
+
+- `node_modules/**`, `dist/**`, `coverage/**`
+- Minified files (`*.min.js`, `*.min.css`)
+- Package lockfiles (never format auto-generated files)
+
+This configuration is applied uniformly via Oxfmt.
 
 <br>
 
@@ -164,6 +164,10 @@ Licensed under the [**MIT license**](https://github.com/igorskyflyer/npm-oxfmt-c
 <br>
 
 ## Related
+
+This package is part of the [**dotfiles**](https://github.com/igorskyflyer/dotfiles) DX config suite - a curated index of independently installable configuration packages for linting, formatting, editing, JS/TS, React, Vue and many more.
+
+### Other related packages
 
 [**@igorskyflyer/astro-render-component**](https://www.npmjs.com/package/@igorskyflyer/astro-render-component)
 
